@@ -1,6 +1,6 @@
 local cpml = require("cpml")
 
-Player = {}
+local Player = {}
 WIDTH, HEIGHT = love.graphics.getDimensions()
 
 function Player:new()
@@ -43,3 +43,5 @@ function Player:update(dt)
     if self.velocity.y > self.maxSpeed then self.velocity.y = self.maxSpeed end
     self.position.x, self.position.y = self.position.x + self.velocity.x * dt, self.position.y + self.velocity.y * dt
 end
+
+return Player

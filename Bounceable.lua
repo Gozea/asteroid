@@ -16,4 +16,10 @@ function Bounceable:bounce(e)
     error("Error : bounce not implemented for current instance")
 end
 
+function Bounceable:collision(e)
+    if self:checkCollision(e) then
+        self:bounce(e)
+    end
+end
+
 return Bounceable
