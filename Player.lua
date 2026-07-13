@@ -11,24 +11,25 @@ function Player:new()
     instance.velocity = cpml.vec2(0, 0)
     instance.acceleration = cpml.vec2(0, 0)
     instance.direction = cpml.vec2(0, -1)
-    instance.size = 5
+    instance.size = 20
     instance.speed = 30
+    instance.rotateSpeed = 0.1
     instance.maxSpeed = 150
     instance.width, instance.height = 5, 5
     return instance
 end
 
 function Player:draw()
-    love.graphics.rectangle("line", self.position.x, self.position.y, self.width, self.height)
-    --love.graphics.triangle("line", self.position.x + self.size*self.direction.x, self.position.y + self.size*self.direction.y, self.position.x + (self.size/2)*cpml.vec2.rotate(self.direction, 2.1).x, self.position.y + (self.size/2)*cpml.vec2.rotate(self.direction, 2.1).y, self.position.x + (self.size/2)*cpml.vec2.rotate(self.direction, 4.2).x, self.position.y + (self.size/2)*cpml.vec2.rotate(self.direction, 4.2).y)
+    --love.graphics.rectangle("line", self.position.x, self.position.y, self.width, self.height)
+    love.graphics.polygon("line", self.position.x + self.size*self.direction.x, self.position.y + self.size*self.direction.y, self.position.x + (self.size/2)*cpml.vec2.rotate(self.direction, 2.1).x, self.position.y + (self.size/2)*cpml.vec2.rotate(self.direction, 2.1).y, self.position.x + (self.size/2)*cpml.vec2.rotate(self.direction, 4.2).x, self.position.y + (self.size/2)*cpml.vec2.rotate(self.direction, 4.2).y)
 end
 
 function Player:move()
     local moves = {
-        ["right"] = function() self.acceleration.x = self.speed end,
-        ["left"] = function() self.acceleration.x = -self.speed end,
-        ["down"] = function() self.acceleration.y = self.speed end,
-        ["up"] = function() self.acceleration.y = -self.speed end,
+        ["right"] = function() self.direction = cpml.vec2.rotate(self.direction, self.rotateSpeed) end,
+        ["left"] = function() self.direction = cpml.vec2.rotate(self.direction, -self.rotateSpeed) end,
+        --["down"] = function() self.acceleration.y = self.speed end,
+        ["up"] = function() self.acceleration = self.direction*self.speed end,
     }
 
     self.acceleration = cpml.vec2(0, 0)
