@@ -9,7 +9,7 @@ function Wall:new(v1, v2)
     instance.a, instance.b = v1, v2
     instance.vector = instance.b - instance.a
     instance.normal = cpml.vec2.normalize(cpml.vec2(-instance.vector.y, instance.vector.x))
-    instance.thickness = 50
+    instance.thickness = 5
     return instance
 end
 
