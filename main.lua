@@ -7,6 +7,8 @@ local Asteroid = require("Asteroid")
 WIDTH, HEIGHT = love.graphics.getDimensions()
 
 function love.load()
+    love.physics.setMeter(64)
+    World = love.physics.newWorld(0, 0)
     player = Player:new()
     borders = {
         left = Wall:new(cpml.vec2(0,0), cpml.vec2(0, HEIGHT)),
@@ -18,12 +20,12 @@ function love.load()
 end
 
 function love.update(dt)
+    World:update(dt)
     player:move()
-    player:update(dt)
 
-    for k, wall in pairs(borders) do
-        wall:collision(player)
-    end
+    --for k, wall in pairs(borders) do
+    --    wall:collision(player)
+    --end
 end
 
 function love.draw()
