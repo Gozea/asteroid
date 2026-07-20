@@ -17,6 +17,7 @@ function love.load()
         bottom = Wall:new(cpml.vec2(0, HEIGHT), cpml.vec2(WIDTH, HEIGHT)),
     }
     asteroids = {}
+    shots = {}
 end
 
 function love.update(dt)
@@ -30,4 +31,7 @@ end
 
 function love.draw()
     player:draw()
+    for k, shot in pairs(shots) do
+        shot:draw()
+    end
 end
