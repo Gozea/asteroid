@@ -5,8 +5,8 @@ function Shot:new(position)
     setmetatable(instance, self)
     self.__index = self
     instance.body = love.physics.newBody(World, position.x, position.y, "dynamic")
-    instance.shape = love.physics.newCircleShape(4)
-    instance.fixture = love.physics.newFixture(instance.body, instance.shape)
+    --instance.shape = love.physics.newCircleShape(4)
+    --instance.fixture = love.physics.newFixture(instance.body, instance.shape)
     return instance
 end
 
