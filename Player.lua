@@ -11,13 +11,12 @@ function Player:new()
     setmetatable(instance, self)
     self.__index = self
     instance.direction = cpml.vec2(0, -1)
-    instance.size = 20
     instance.speed = 30
     instance.rotateSpeed = 0.1
     instance.cooldown = config.player_cooldown
-    instance.canShoot = false
+    instance.canShoot = true
     instance.body = love.physics.newBody(World, WIDTH / 2, HEIGHT / 2, "dynamic")
-    instance.shape = love.physics.newRectangleShape(20, 20)
+    instance.shape = love.physics.newRectangleShape(config.player_shape_size, config.player_shape_size)
     instance.fixture = love.physics.newFixture(instance.body, instance.shape)
     instance.fixture:setCategory(config.player_mask)
     return instance
@@ -27,9 +26,9 @@ function Player:draw()
     local x, y = self.body:getPosition()
     love.graphics.polygon(
         "line",
-        x + self.size * self.direction.x, y + self.size * self.direction.y,
-        x + (self.size / 2) * cpml.vec2.rotate(self.direction, 2.1).x, y + (self.size / 2) * cpml.vec2.rotate(self.direction, 2.1).y,
-        x + (self.size / 2) * cpml.vec2.rotate(self.direction, 4.2).x, y + (self.size / 2) * cpml.vec2.rotate(self.direction, 4.2).y
+        x + config.player_shape_size * self.direction.x, y + config.player_shape_size * self.direction.y,
+        x + (config.player_shape_size / 2) * cpml.vec2.rotate(self.direction, 2.1).x, y + (config.player_shape_size / 2) * cpml.vec2.rotate(self.direction, 2.1).y,
+        x + (config.player_shape_size / 2) * cpml.vec2.rotate(self.direction, 4.2).x, y + (config.player_shape_size / 2) * cpml.vec2.rotate(self.direction, 4.2).y
     )
 end
 
@@ -65,7 +64,8 @@ function Player:shoot()
         local shotPosition = cpml.vec2(x + self.direction.x * 20, y + self.direction.y * 20)
         local shot = Shot:new(shotPosition)
         table.insert(shots, shot)
-        shot:launch(self.direction, 80)
+        shot:launch(self.direction, config.shot_impulse)
+        self.canShoot = false
     end
 end
 
