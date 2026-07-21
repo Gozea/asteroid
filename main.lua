@@ -26,7 +26,6 @@ function love.update(dt)
     World:update(dt)
     player:move()
     if love.timer.getTime() % config.asteroid_spawn_frequency <= dt then
-        print("asteroid")
         local asteroid = Asteroid:new(math.random(WIDTH), math.random(HEIGHT))
         table.insert(asteroids, asteroid)
     end
