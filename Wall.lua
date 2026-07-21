@@ -1,6 +1,9 @@
 require("math")
 local cpml = require("cpml")
-local Wall = require("Bounceable")
+
+local config = require("config")
+
+local Wall = {}
 
 function Wall:new(v1, v2)
     local instance = {}
@@ -10,6 +13,7 @@ function Wall:new(v1, v2)
     instance.body = love.physics.newBody(World, (v1.x+v2.x)/2, (v1.y+v2.y)/2)
     instance.shape = love.physics.newRectangleShape(math.abs(v1.x-v2.x)+10, math.abs(v1.y-v2.y)+10)
     instance.fixture = love.physics.newFixture(instance.body, instance.shape)
+    instance.fixture:setCategory(config.wall_mask)
     return instance
 end
 

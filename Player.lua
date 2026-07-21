@@ -1,4 +1,6 @@
 local cpml = require("cpml")
+
+local config = require("config")
 local Shot = require("Shot")
 
 local Player = {}
@@ -12,24 +14,26 @@ function Player:new()
     instance.size = 20
     instance.speed = 30
     instance.rotateSpeed = 0.1
-    instance.maxSpeed = 150
-    instance.width, instance.height = 5, 5
+    instance.cooldown = config.player_cooldown
+    instance.canShoot = false
     instance.body = love.physics.newBody(World, WIDTH / 2, HEIGHT / 2, "dynamic")
     instance.shape = love.physics.newRectangleShape(20, 20)
     instance.fixture = love.physics.newFixture(instance.body, instance.shape)
+    instance.fixture:setCategory(config.player_mask)
     return instance
 end
 
 function Player:draw()
     local x, y = self.body:getPosition()
-    love.graphics.polygon("line", x + self.size * self.direction.x, y + self.size * self.direction.y,
-        x + (self.size / 2) * cpml.vec2.rotate(self.direction, 2.1).x,
-        y + (self.size / 2) * cpml.vec2.rotate(self.direction, 2.1).y,
-        x + (self.size / 2) * cpml.vec2.rotate(self.direction, 4.2).x,
-        y + (self.size / 2) * cpml.vec2.rotate(self.direction, 4.2).y)
+    love.graphics.polygon(
+        "line",
+        x + self.size * self.direction.x, y + self.size * self.direction.y,
+        x + (self.size / 2) * cpml.vec2.rotate(self.direction, 2.1).x, y + (self.size / 2) * cpml.vec2.rotate(self.direction, 2.1).y,
+        x + (self.size / 2) * cpml.vec2.rotate(self.direction, 4.2).x, y + (self.size / 2) * cpml.vec2.rotate(self.direction, 4.2).y
+    )
 end
 
-function Player:move()
+function Player:move(dt)
     local moves = {
         ["right"] = function() self.direction = cpml.vec2.rotate(self.direction, self.rotateSpeed) end,
         ["left"] = function() self.direction = cpml.vec2.rotate(self.direction, -self.rotateSpeed) end,
@@ -43,10 +47,20 @@ function Player:move()
             action()
         end
     end
+
+    -- reload shot
+    if self.canShoot == false then
+        self.cooldown = self.cooldown - dt
+    end
+
+    if self.cooldown <= 0 then
+        self.cooldown = config.player_cooldown
+        self.canShoot = true
+    end
 end
 
 function Player:shoot()
-    if love.keyboard.isDown("space") then
+    if love.keyboard.isDown("space") and self.canShoot then
         local x, y = self.body:getPosition()
         local shotPosition = cpml.vec2(x + self.direction.x * 20, y + self.direction.y * 20)
         local shot = Shot:new(shotPosition)
