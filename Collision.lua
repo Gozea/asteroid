@@ -10,6 +10,11 @@ function onCollision(fixture_a, fixture_b, contact)
         table.insert(destroyList, fixture_a:getBody())
         table.insert(destroyList, fixture_b:getBody())
     end
+    if isPlayerAsteroid then
+        table.insert(destroyList, fixture_a:getBody())
+        table.insert(destroyList, fixture_b:getBody())
+        gameover = true
+    end
 end
 
 function clearObjects(objectList)
@@ -17,5 +22,11 @@ function clearObjects(objectList)
         if objectList[i].body:isDestroyed() then
             table.remove(objectList, i)
         end
+    end
+end
+
+function clearPlayer()
+    if gameover then
+        player = nil
     end
 end

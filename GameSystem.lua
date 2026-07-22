@@ -10,13 +10,20 @@ local Asteroid = require("Asteroid")
 
 WIDTH, HEIGHT = love.graphics.getDimensions()
 
-GameSystem.pause = false
-GameSystem.gameover = false
+love.graphics.setFont (love.graphics.newFont (30))
+
+font = love.graphics.getFont()
+gameOverText = love.graphics.newText(font)
+textHeight = font:getHeight()
+gameOverText:add( {{1,1,1}, "Game Over"}, 0, 0, 0, 1, 1, -20, 0, 0, 0)
+gameOverText:add( {{1,1,1}, "Press Enter to restart"}, 0, 0, 0, 0.7, 0.7, 0, -1.6*textHeight, 0,0)
 
 function GameSystem:startGame()
+    -- set world
     love.physics.setMeter(64)
     World = love.physics.newWorld(0, 0)
     World:setCallbacks(onCollision)
+    -- set objects
     player = Player:new()
     borders = {
         left = Wall:new(cpml.vec2(0,0), cpml.vec2(0, HEIGHT)),
@@ -28,10 +35,13 @@ function GameSystem:startGame()
     shots = {}
     -- bodies to clear
     destroyList = {}
+    -- variables
+    pause = false
+    gameover = false
 end
 
 function GameSystem:update(dt)
-    if not self.pause and not self.gameover then
+    if not pause and not gameover then
         World:update(dt)
         player:move(dt)
         if love.timer.getTime() % config.asteroid_spawn_frequency <= dt then
@@ -45,19 +55,27 @@ function GameSystem:update(dt)
             -- clear list with object with no body
             clearObjects(shots)
             clearObjects(asteroids)
+            clearPlayer()
         end
         --for k, wall in pairs(borders) do
         --    wall:collision(player)
         --end
         if love.keyboard.isDown("escape") then
-            self.pause = true
+            pause = true
         end
     end
-    if self.pause then
+    if pause then
         if love.keyboard.isDown("return") then
-            self.pause = false
+            pause = false
+        end
+    end
+    if gameover then
+        if love.keyboard.isDown("return") then
+            gameover = false
+            self.startGame()
         end
     end
 end
+
 
 return GameSystem
