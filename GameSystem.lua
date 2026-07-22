@@ -10,7 +10,7 @@ local Asteroid = require("Asteroid")
 
 WIDTH, HEIGHT = love.graphics.getDimensions()
 
-love.graphics.setFont (love.graphics.newFont (30))
+love.graphics.setFont(love.graphics.newFont(config.gameover_font_size))
 
 font = love.graphics.getFont()
 gameOverText = love.graphics.newText(font)

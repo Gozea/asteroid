@@ -11,8 +11,8 @@ function Player:new()
     setmetatable(instance, self)
     self.__index = self
     instance.direction = cpml.vec2(0, -1)
-    instance.speed = 30
-    instance.rotateSpeed = 0.1
+    instance.speed = config.player_speed
+    instance.rotateSpeed = config.player_rotate_speed
     instance.cooldown = config.player_cooldown
     instance.canShoot = true
     instance.body = love.physics.newBody(World, WIDTH / 2, HEIGHT / 2, "dynamic")
