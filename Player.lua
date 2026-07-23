@@ -3,6 +3,9 @@ local cpml = require("cpml")
 local config = require("config")
 local Shot = require("Shot")
 
+
+local reload_shader = love.graphics.newShader("assets/shaders/player_reload.glsl")
+
 local Player = {}
 WIDTH, HEIGHT = love.graphics.getDimensions()
 
@@ -24,12 +27,17 @@ end
 
 function Player:draw()
     local x, y = self.body:getPosition()
+    if not self.canShoot then
+        love.graphics.setShader(reload_shader)
+        reload_shader:send("time", love.timer.getTime())
+    end
     love.graphics.polygon(
         "line",
         x + config.player_shape_size * self.direction.x, y + config.player_shape_size * self.direction.y,
         x + (config.player_shape_size / 2) * cpml.vec2.rotate(self.direction, 2.1).x, y + (config.player_shape_size / 2) * cpml.vec2.rotate(self.direction, 2.1).y,
         x + (config.player_shape_size / 2) * cpml.vec2.rotate(self.direction, 4.2).x, y + (config.player_shape_size / 2) * cpml.vec2.rotate(self.direction, 4.2).y
     )
+    love.graphics.setShader()
 end
 
 function Player:move(dt)
