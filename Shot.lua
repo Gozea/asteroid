@@ -6,7 +6,7 @@ function Shot:new(position)
     setmetatable(instance, self)
     self.__index = self
     instance.body = love.physics.newBody(World, position.x, position.y, "dynamic")
-    instance.shape = love.physics.newCircleShape(4)
+    instance.shape = love.physics.newCircleShape(config.shot_size)
     instance.fixture = love.physics.newFixture(instance.body, instance.shape)
     instance.fixture:setCategory(config.shot_mask)
     instance.fixture:setMask(config.player_mask)
@@ -21,7 +21,7 @@ end
 
 function Shot:draw()
     local x, y = self.body:getPosition()
-    love.graphics.circle("fill", x, y, 4)
+    love.graphics.circle("fill", x, y, config.shot_size)
 end
 
 return Shot

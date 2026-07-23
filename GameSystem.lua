@@ -20,7 +20,7 @@ gameOverText:add( {{1,1,1}, "Press Enter to restart"}, 0, 0, 0, 0.7, 0.7, 0, -1.
 
 function GameSystem:startGame()
     -- set world
-    love.physics.setMeter(64)
+    love.physics.setMeter(config.pixel_per_meter)
     World = love.physics.newWorld(0, 0)
     World:setCallbacks(onCollision)
     -- set objects

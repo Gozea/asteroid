@@ -1,5 +1,8 @@
 local config = {}
 
+-- System
+config.pixel_per_meter = 64
+
 -- hitboxes
 config.player_mask = 1
 config.asteroid_mask = 2
@@ -21,6 +24,7 @@ config.asteroid_max_impulse = 50
 
 -- shot
 config.shot_impulse = 30
+config.shot_size = 4
 
 -- font
 config.gameover_font_size = 40
