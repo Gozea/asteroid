@@ -32,7 +32,7 @@ Of course, you will need the löve framework to run the game. Depending on your 
 
 #### Windows, Mac, Ubuntu
 
-Just go on the (https://love2d.org/#download)[official website]
+Just go on the (https://love2d.org/#download )[official website]
 
 #### Archlinux
 
@@ -64,7 +64,7 @@ love .
 
 Building your game is basically zipping your project, rename its extension in .love instead of .zip, appending the .love to the official love.exe distribution to create a .exe, then packaging your .exe with the official DLL files distributed by löve
 
-All the instructions are on the (https://love2d.org/wiki/Game_Distribution)[official website]
+All the instructions are on the (https://love2d.org/wiki/Game_Distribution )[official website]
 
 There are also instructions to build your game for other platforms like Android, or even for the web.
 
@@ -82,7 +82,7 @@ zip -9 -r build/game.love . -x build/
 
 You will need to download the love zip executable to create your game executable.
 
-There is already one in the build/ directory, but you can download the latest version on the (https://www.love2d.org/)[official website]. What you need is NOT the installer but the zipped love framework (32 or 64 bits depending of your own preferences).
+There is already one in the build/ directory, but you can download the latest version on the (https://www.love2d.org/ )[official website]. What you need is NOT the installer but the zipped love framework (32 or 64 bits depending of your own preferences).
 
 Put it in the build/ directory, then unzip it.
 
