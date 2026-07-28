@@ -8,7 +8,8 @@ Physics and collisions are managed by löve, cpml is used for vector computation
 
 # How to play
 
-This repository comes with an executable. You can clone this repo or even just download the game.exe file to run
+If you are on windows, there is a release you can find on the right of this page. Unzip it, then run the game.exe.
+Otherwise, follow the installation instructions, then run the project.
 
 ### inputs
 
