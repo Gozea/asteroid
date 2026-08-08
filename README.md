@@ -9,7 +9,7 @@ Physics and collisions are managed by löve, cpml is used for vector computation
 # How to play
 
 If you are on windows, there is a release you can find on the right of this page. Unzip it, then run the game.exe.
-Otherwise, follow the installation instructions, then run the project.
+Otherwise, follow the installation instructions under the development section, then run the project.
 
 ### inputs
 
